@@ -30,7 +30,7 @@ export function HeroSection() {
               alt="AI is smart. I make it useful."
               width={280}
               height={40}
-              className="mt-2 h-auto"
+              className="mt-2 h-auto w-auto"
             />
           </div>
 

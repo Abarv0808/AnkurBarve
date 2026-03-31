@@ -18,12 +18,19 @@ export default function Portfolio() {
   const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null)
   const [selectedTopic, setSelectedTopic] = useState<LeadershipTopic | null>(null)
   const [activeSection, setActiveSection] = useState("about")
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
   }
 
   useEffect(() => {
+    if (!mounted) return
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -38,7 +45,15 @@ export default function Portfolio() {
       if (el) observer.observe(el)
     })
     return () => observer.disconnect()
-  }, [])
+  }, [mounted])
+
+  if (!mounted) {
+    return (
+      <div className="bg-background text-foreground min-h-screen flex items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    )
+  }
 
   return (
     <div className="bg-background text-foreground min-h-screen">
